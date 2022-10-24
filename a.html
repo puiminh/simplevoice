@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.5/p5.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.5/addons/p5.dom.js"></script>
+    <script src="./p5.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <input id="wordtosay" type="text">
+    <button onclick="speak()">Say</button>
+    <button onclick="listen()">Listen</button>
+</body>
+</html>
+
+
+<script>
+var foo = new p5.Speech(); // speech synthesis object
+var fooL = new p5.SpeechRec(); // speech recognition object (will prompt for mic access)
+fooL.onResult = showResult; // bind callback function to trigger when speech is recognized
+
+foo.setLang('vi-VN');
+fooL.setLang('vi-VN');
+function speak() {
+
+    foo.speak(document.getElementById('wordtosay').value);
+}
+
+function showResult() {
+    document.getElementById('wordtosay').value = fooL.resultString;
+    console.log('trigger: ', fooL.resultString)
+}
+
+function listen() {
+    console.log('listen');
+    fooL.start();
+}
+ // say something
+</script>
